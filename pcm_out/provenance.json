@@ -5,119 +5,164 @@
   "generatedAtLocal": "2026-09-16",
   "outputFormat": "raw PCM, 24000 Hz, 16-bit signed little-endian, mono",
   "auth": "gcloud application default credentials (no API key)",
+  "style": "Warm, kind, welcoming in-car wake reply with a vocal smile; never angry/stern/commanding. Gemini TTS style prompt + [warmly]/[gently] tags.",
   "outputDir": "pcm_out/",
   "files": [
     {
       "file": "01-please-speak.pcm",
-      "bytes": 82560,
-      "seconds": 1.72
+      "text": "Please speak",
+      "bytes": 71040,
+      "seconds": 1.48,
+      "peak": 10600
     },
     {
       "file": "02-i-m-here.pcm",
-      "bytes": 65280,
-      "seconds": 1.36
+      "text": "I'm here",
+      "bytes": 57600,
+      "seconds": 1.2,
+      "peak": 10281
     },
     {
       "file": "03-hello.pcm",
-      "bytes": 53760,
-      "seconds": 1.12
+      "text": "Hello",
+      "bytes": 55680,
+      "seconds": 1.16,
+      "peak": 15877
     },
     {
       "file": "04-please-instruct.pcm",
-      "bytes": 76800,
-      "seconds": 1.6
+      "text": "Please instruct",
+      "bytes": 78720,
+      "seconds": 1.64,
+      "peak": 13634
     },
     {
       "file": "05-good-morning.pcm",
-      "bytes": 71040,
-      "seconds": 1.48
+      "text": "Good morning",
+      "bytes": 63360,
+      "seconds": 1.32,
+      "peak": 16416
     },
     {
       "file": "06-morning.pcm",
-      "bytes": 61440,
-      "seconds": 1.28
+      "text": "Morning",
+      "bytes": 57600,
+      "seconds": 1.2,
+      "peak": 16254
     },
     {
       "file": "07-hey-there.pcm",
-      "bytes": 51840,
-      "seconds": 1.08
+      "text": "Hey there",
+      "bytes": 67200,
+      "seconds": 1.4,
+      "peak": 17645
     },
     {
       "file": "08-good-day.pcm",
-      "bytes": 51840,
-      "seconds": 1.08
+      "text": "Good day",
+      "bytes": 63360,
+      "seconds": 1.32,
+      "peak": 20207
     },
     {
       "file": "09-here-i-am.pcm",
-      "bytes": 78720,
-      "seconds": 1.64
+      "text": "Here I am",
+      "bytes": 69120,
+      "seconds": 1.44,
+      "peak": 17997
     },
     {
       "file": "10-hi.pcm",
-      "bytes": 51840,
-      "seconds": 1.08
+      "text": "Hi",
+      "bytes": 48000,
+      "seconds": 1.0,
+      "peak": 15201
     },
     {
       "file": "11-nice-to-see-you-again.pcm",
-      "bytes": 88320,
-      "seconds": 1.84
+      "text": "Nice to see you again",
+      "bytes": 92160,
+      "seconds": 1.92,
+      "peak": 17534
     },
     {
       "file": "12-good-noon.pcm",
+      "text": "Good noon",
       "bytes": 74880,
-      "seconds": 1.56
+      "seconds": 1.56,
+      "peak": 19016
     },
     {
       "file": "13-good-afternoon.pcm",
+      "text": "Good afternoon",
       "bytes": 71040,
-      "seconds": 1.48
+      "seconds": 1.48,
+      "peak": 19793
     },
     {
       "file": "14-hello-there.pcm",
-      "bytes": 71040,
-      "seconds": 1.48
+      "text": "Hello there",
+      "bytes": 59520,
+      "seconds": 1.24,
+      "peak": 15365
     },
     {
       "file": "15-yes.pcm",
-      "bytes": 69120,
-      "seconds": 1.44
+      "text": "Yes",
+      "bytes": 57600,
+      "seconds": 1.2,
+      "peak": 18400
     },
     {
       "file": "16-i-m-listening.pcm",
-      "bytes": 71040,
-      "seconds": 1.48
+      "text": "I'm listening",
+      "bytes": 72960,
+      "seconds": 1.52,
+      "peak": 16543
     },
     {
       "file": "17-good-evening.pcm",
-      "bytes": 65280,
-      "seconds": 1.36
+      "text": "Good evening",
+      "bytes": 61440,
+      "seconds": 1.28,
+      "peak": 15402
     },
     {
       "file": "18-here.pcm",
-      "bytes": 48000,
-      "seconds": 1
+      "text": "Here",
+      "bytes": 49920,
+      "seconds": 1.04,
+      "peak": 13162
     },
     {
       "file": "19-coming.pcm",
-      "bytes": 49920,
-      "seconds": 1.04
+      "text": "Coming",
+      "bytes": 55680,
+      "seconds": 1.16,
+      "peak": 16371
     },
     {
       "file": "20-please-talk.pcm",
-      "bytes": 76800,
-      "seconds": 1.6
+      "text": "Please talk",
+      "bytes": 65280,
+      "seconds": 1.36,
+      "peak": 15922
     },
     {
       "file": "21-please-speak.pcm",
-      "bytes": 86400,
-      "seconds": 1.8
+      "text": "Please speak",
+      "bytes": 71040,
+      "seconds": 1.48,
+      "peak": 14917
     },
     {
       "file": "22-good-noon.pcm",
-      "bytes": 67200,
-      "seconds": 1.4
+      "text": "Good noon",
+      "bytes": 61440,
+      "seconds": 1.28,
+      "peak": 17384
     }
   ],
   "total": 22,
-  "verification": "per-file duration/silence/clipping analysis passed; file 01 regenerated once (model repeated the phrase 5x in first take)"
+  "verification": "per-file duration/burst/clipping/loudness gate with up to 5 takes; style prompt used to avoid angry/commanding delivery; Gemini 2.5 Flash listened to all 22 and confirmed transcript match with no angry/stern flags; 07 and 16 re-taken for loudness"
 }
