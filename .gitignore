@@ -1,0 +1,10 @@
+# Credentials must never be committed
+api_key.txt
+.env
+*.pem
+*.key
+
+# Local tooling
+node_modules/
+*.log
+.claude/

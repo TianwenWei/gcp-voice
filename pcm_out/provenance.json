@@ -1,0 +1,123 @@
+{
+  "provider": "Google Vertex AI (Gemini API)",
+  "model": "gemini-3.1-flash-tts-preview",
+  "voice": "Achernar",
+  "generatedAtLocal": "2026-09-16",
+  "outputFormat": "raw PCM, 24000 Hz, 16-bit signed little-endian, mono",
+  "auth": "gcloud application default credentials (no API key)",
+  "outputDir": "pcm_out/",
+  "files": [
+    {
+      "file": "01-please-speak.pcm",
+      "bytes": 82560,
+      "seconds": 1.72
+    },
+    {
+      "file": "02-i-m-here.pcm",
+      "bytes": 65280,
+      "seconds": 1.36
+    },
+    {
+      "file": "03-hello.pcm",
+      "bytes": 53760,
+      "seconds": 1.12
+    },
+    {
+      "file": "04-please-instruct.pcm",
+      "bytes": 76800,
+      "seconds": 1.6
+    },
+    {
+      "file": "05-good-morning.pcm",
+      "bytes": 71040,
+      "seconds": 1.48
+    },
+    {
+      "file": "06-morning.pcm",
+      "bytes": 61440,
+      "seconds": 1.28
+    },
+    {
+      "file": "07-hey-there.pcm",
+      "bytes": 51840,
+      "seconds": 1.08
+    },
+    {
+      "file": "08-good-day.pcm",
+      "bytes": 51840,
+      "seconds": 1.08
+    },
+    {
+      "file": "09-here-i-am.pcm",
+      "bytes": 78720,
+      "seconds": 1.64
+    },
+    {
+      "file": "10-hi.pcm",
+      "bytes": 51840,
+      "seconds": 1.08
+    },
+    {
+      "file": "11-nice-to-see-you-again.pcm",
+      "bytes": 88320,
+      "seconds": 1.84
+    },
+    {
+      "file": "12-good-noon.pcm",
+      "bytes": 74880,
+      "seconds": 1.56
+    },
+    {
+      "file": "13-good-afternoon.pcm",
+      "bytes": 71040,
+      "seconds": 1.48
+    },
+    {
+      "file": "14-hello-there.pcm",
+      "bytes": 71040,
+      "seconds": 1.48
+    },
+    {
+      "file": "15-yes.pcm",
+      "bytes": 69120,
+      "seconds": 1.44
+    },
+    {
+      "file": "16-i-m-listening.pcm",
+      "bytes": 71040,
+      "seconds": 1.48
+    },
+    {
+      "file": "17-good-evening.pcm",
+      "bytes": 65280,
+      "seconds": 1.36
+    },
+    {
+      "file": "18-here.pcm",
+      "bytes": 48000,
+      "seconds": 1
+    },
+    {
+      "file": "19-coming.pcm",
+      "bytes": 49920,
+      "seconds": 1.04
+    },
+    {
+      "file": "20-please-talk.pcm",
+      "bytes": 76800,
+      "seconds": 1.6
+    },
+    {
+      "file": "21-please-speak.pcm",
+      "bytes": 86400,
+      "seconds": 1.8
+    },
+    {
+      "file": "22-good-noon.pcm",
+      "bytes": 67200,
+      "seconds": 1.4
+    }
+  ],
+  "total": 22,
+  "verification": "per-file duration/silence/clipping analysis passed; file 01 regenerated once (model repeated the phrase 5x in first take)"
+}
