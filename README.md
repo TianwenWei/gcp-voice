@@ -12,10 +12,16 @@
 
 ```
 GCP/
-├── tts_gen.mjs          # 生成脚本（Node ≥ 18，无第三方依赖）
-├── pcm_out/             # 输出目录
+├── tts_gen.mjs            # 美式 en-US 生成脚本（Node ≥ 18，无第三方依赖）
+├── pcm_out/               # 量产 PCM
 │   ├── 01-*.pcm ... 22-*.pcm
-│   └── provenance.json  # 溯源记录（模型、格式、逐文件校验信息）
+│   └── provenance.json
+├── wav_out/               # 同上 22 条的 WAV
+├── compare_british.mjs    # 英式 RP 音色对比生成
+├── compare/               # 可点击试听页
+│   ├── index.html
+│   ├── manifest.json
+│   └── audio/             # 30 音色 × 7 句 WAV
 └── README.md
 ```
 
@@ -67,6 +73,26 @@ ONLY=5 node tts_gen.mjs   # 仅重新生成第 5 条
 ```
 
 修改短语列表：编辑 `tts_gen.mjs` 中的 `PHRASES` 数组；换音色改 `VOICE` 常量。语气由脚本里的 style prompt 控制，不要只喂光秃短语，否则短句容易被念成命令/生气。
+
+## 英式口音音色对比
+
+Gemini TTS **没有单独的英式 role**：官方 30 个 prebuilt voice 都可以说英式。对比页用 `languageCode=en-GB` + Received Pronunciation（标准南部英音 / BBC，非 Cockney、Estuary、北部或苏格兰）生成，并带一行现有美式 `Achernar`（`en-US`）对照。
+
+本地打开：
+
+```bash
+python3 -m http.server 8766 --bind 127.0.0.1
+# 浏览器打开 http://127.0.0.1:8766/compare/index.html
+```
+
+重新生成样本：
+
+```bash
+node compare_british.mjs                 # 30 音色 × 7 句（已存在则跳过）
+ONLY_VOICE=Achernar node compare_british.mjs
+FORCE=1 ONLY_VOICE=Kore node compare_british.mjs
+HTML_ONLY=1 node compare_british.mjs     # 只重写 HTML
+```
 
 依赖与前置条件：
 

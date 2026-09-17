@@ -1,0 +1,1458 @@
+{
+  "generatedAt": "2026-09-17T16:51:22.707Z",
+  "model": "gemini-3.1-flash-tts-preview",
+  "languageCode": "en-GB",
+  "accent": "Standard British English (Received Pronunciation)",
+  "voices": [
+    {
+      "name": "Achernar",
+      "gender": "Female",
+      "character": "Soft"
+    },
+    {
+      "name": "Aoede",
+      "gender": "Female",
+      "character": "Breezy"
+    },
+    {
+      "name": "Autonoe",
+      "gender": "Female",
+      "character": "Bright"
+    },
+    {
+      "name": "Callirrhoe",
+      "gender": "Female",
+      "character": "Easy-going"
+    },
+    {
+      "name": "Despina",
+      "gender": "Female",
+      "character": "Smooth"
+    },
+    {
+      "name": "Erinome",
+      "gender": "Female",
+      "character": "Clear"
+    },
+    {
+      "name": "Gacrux",
+      "gender": "Female",
+      "character": "Mature"
+    },
+    {
+      "name": "Kore",
+      "gender": "Female",
+      "character": "Firm"
+    },
+    {
+      "name": "Laomedeia",
+      "gender": "Female",
+      "character": "Upbeat"
+    },
+    {
+      "name": "Leda",
+      "gender": "Female",
+      "character": "Youthful"
+    },
+    {
+      "name": "Pulcherrima",
+      "gender": "Female",
+      "character": "Forward"
+    },
+    {
+      "name": "Sulafat",
+      "gender": "Female",
+      "character": "Warm"
+    },
+    {
+      "name": "Vindemiatrix",
+      "gender": "Female",
+      "character": "Gentle"
+    },
+    {
+      "name": "Zephyr",
+      "gender": "Female",
+      "character": "Bright"
+    },
+    {
+      "name": "Achird",
+      "gender": "Male",
+      "character": "Friendly"
+    },
+    {
+      "name": "Algenib",
+      "gender": "Male",
+      "character": "Gravelly"
+    },
+    {
+      "name": "Algieba",
+      "gender": "Male",
+      "character": "Smooth"
+    },
+    {
+      "name": "Alnilam",
+      "gender": "Male",
+      "character": "Firm"
+    },
+    {
+      "name": "Charon",
+      "gender": "Male",
+      "character": "Informative"
+    },
+    {
+      "name": "Enceladus",
+      "gender": "Male",
+      "character": "Breathy"
+    },
+    {
+      "name": "Fenrir",
+      "gender": "Male",
+      "character": "Excitable"
+    },
+    {
+      "name": "Iapetus",
+      "gender": "Male",
+      "character": "Clear"
+    },
+    {
+      "name": "Orus",
+      "gender": "Male",
+      "character": "Firm"
+    },
+    {
+      "name": "Puck",
+      "gender": "Male",
+      "character": "Upbeat"
+    },
+    {
+      "name": "Rasalgethi",
+      "gender": "Male",
+      "character": "Informative"
+    },
+    {
+      "name": "Sadachbia",
+      "gender": "Male",
+      "character": "Lively"
+    },
+    {
+      "name": "Sadaltager",
+      "gender": "Male",
+      "character": "Knowledgeable"
+    },
+    {
+      "name": "Schedar",
+      "gender": "Male",
+      "character": "Even"
+    },
+    {
+      "name": "Umbriel",
+      "gender": "Male",
+      "character": "Easy-going"
+    },
+    {
+      "name": "Zubenelgenubi",
+      "gender": "Male",
+      "character": "Casual"
+    }
+  ],
+  "phrases": [
+    {
+      "id": "please-speak",
+      "text": "Please speak",
+      "tag": "gently"
+    },
+    {
+      "id": "im-here",
+      "text": "I'm here",
+      "tag": "warmly"
+    },
+    {
+      "id": "hello",
+      "text": "Hello",
+      "tag": "warmly"
+    },
+    {
+      "id": "good-morning",
+      "text": "Good morning",
+      "tag": "warmly"
+    },
+    {
+      "id": "nice-to-see-you-again",
+      "text": "Nice to see you again",
+      "tag": "warmly"
+    },
+    {
+      "id": "im-listening",
+      "text": "I'm listening",
+      "tag": "warmly"
+    },
+    {
+      "id": "rp-probe",
+      "text": "Good afternoon. I can't schedule that after half past four.",
+      "tag": "warmly"
+    }
+  ],
+  "files": [
+    {
+      "voice": "Achernar",
+      "phrase": "please-speak",
+      "skipped": true
+    },
+    {
+      "voice": "Achernar",
+      "phrase": "im-here",
+      "skipped": true
+    },
+    {
+      "voice": "Achernar",
+      "phrase": "hello",
+      "skipped": true
+    },
+    {
+      "voice": "Achernar",
+      "phrase": "good-morning",
+      "skipped": true
+    },
+    {
+      "voice": "Achernar",
+      "phrase": "nice-to-see-you-again",
+      "skipped": true
+    },
+    {
+      "voice": "Achernar",
+      "phrase": "im-listening",
+      "skipped": true
+    },
+    {
+      "voice": "Achernar",
+      "phrase": "rp-probe",
+      "skipped": true
+    },
+    {
+      "voice": "Aoede",
+      "phrase": "please-speak",
+      "seconds": 1.48,
+      "peak": 21062
+    },
+    {
+      "voice": "Aoede",
+      "phrase": "im-here",
+      "seconds": 1.32,
+      "peak": 13373
+    },
+    {
+      "voice": "Aoede",
+      "phrase": "hello",
+      "seconds": 1.16,
+      "peak": 20570
+    },
+    {
+      "voice": "Aoede",
+      "phrase": "good-morning",
+      "seconds": 1.24,
+      "peak": 11494
+    },
+    {
+      "voice": "Aoede",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.84,
+      "peak": 16690
+    },
+    {
+      "voice": "Aoede",
+      "phrase": "im-listening",
+      "seconds": 1.36,
+      "peak": 13171
+    },
+    {
+      "voice": "Aoede",
+      "phrase": "rp-probe",
+      "seconds": 4.48,
+      "peak": 14679
+    },
+    {
+      "voice": "Autonoe",
+      "phrase": "please-speak",
+      "seconds": 2.16,
+      "peak": 17198
+    },
+    {
+      "voice": "Autonoe",
+      "phrase": "im-here",
+      "seconds": 1.36,
+      "peak": 22865
+    },
+    {
+      "voice": "Autonoe",
+      "phrase": "hello",
+      "seconds": 1.08,
+      "peak": 12286
+    },
+    {
+      "voice": "Autonoe",
+      "phrase": "good-morning",
+      "seconds": 1.68,
+      "peak": 16185
+    },
+    {
+      "voice": "Autonoe",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 2.2,
+      "peak": 26196
+    },
+    {
+      "voice": "Autonoe",
+      "phrase": "im-listening",
+      "seconds": 1.48,
+      "peak": 25972
+    },
+    {
+      "voice": "Autonoe",
+      "phrase": "rp-probe",
+      "seconds": 4.72,
+      "peak": 29151
+    },
+    {
+      "voice": "Callirrhoe",
+      "phrase": "please-speak",
+      "seconds": 1.2,
+      "peak": 15308
+    },
+    {
+      "voice": "Callirrhoe",
+      "phrase": "im-here",
+      "seconds": 1.32,
+      "peak": 32767
+    },
+    {
+      "voice": "Callirrhoe",
+      "phrase": "hello",
+      "seconds": 1.16,
+      "peak": 20650
+    },
+    {
+      "voice": "Callirrhoe",
+      "phrase": "good-morning",
+      "seconds": 1.4,
+      "peak": 28960
+    },
+    {
+      "voice": "Callirrhoe",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.92,
+      "peak": 15357
+    },
+    {
+      "voice": "Callirrhoe",
+      "phrase": "im-listening",
+      "seconds": 1.36,
+      "peak": 18986
+    },
+    {
+      "voice": "Callirrhoe",
+      "phrase": "rp-probe",
+      "seconds": 4.48,
+      "peak": 25627
+    },
+    {
+      "voice": "Despina",
+      "phrase": "please-speak",
+      "seconds": 1.48,
+      "peak": 32768
+    },
+    {
+      "voice": "Despina",
+      "phrase": "im-here",
+      "seconds": 1.28,
+      "peak": 23923
+    },
+    {
+      "voice": "Despina",
+      "phrase": "hello",
+      "seconds": 1.08,
+      "peak": 25258
+    },
+    {
+      "voice": "Despina",
+      "phrase": "good-morning",
+      "seconds": 1.32,
+      "peak": 13627
+    },
+    {
+      "voice": "Despina",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.88,
+      "peak": 19705
+    },
+    {
+      "voice": "Despina",
+      "phrase": "im-listening",
+      "seconds": 1.28,
+      "peak": 29292
+    },
+    {
+      "voice": "Despina",
+      "phrase": "rp-probe",
+      "seconds": 4.76,
+      "peak": 29798
+    },
+    {
+      "voice": "Erinome",
+      "phrase": "please-speak",
+      "seconds": 1.4,
+      "peak": 14995
+    },
+    {
+      "voice": "Erinome",
+      "phrase": "im-here",
+      "seconds": 1.24,
+      "peak": 17276
+    },
+    {
+      "voice": "Erinome",
+      "phrase": "hello",
+      "seconds": 1.28,
+      "peak": 14864
+    },
+    {
+      "voice": "Erinome",
+      "phrase": "good-morning",
+      "seconds": 1.64,
+      "peak": 16350
+    },
+    {
+      "voice": "Erinome",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.92,
+      "peak": 22351
+    },
+    {
+      "voice": "Erinome",
+      "phrase": "im-listening",
+      "seconds": 1.52,
+      "peak": 24876
+    },
+    {
+      "voice": "Erinome",
+      "phrase": "rp-probe",
+      "seconds": 4.84,
+      "peak": 19893
+    },
+    {
+      "voice": "Gacrux",
+      "phrase": "please-speak",
+      "seconds": 1.4,
+      "peak": 27244
+    },
+    {
+      "voice": "Gacrux",
+      "phrase": "im-here",
+      "seconds": 2.08,
+      "peak": 17042
+    },
+    {
+      "voice": "Gacrux",
+      "phrase": "hello",
+      "seconds": 1.16,
+      "peak": 14249
+    },
+    {
+      "voice": "Gacrux",
+      "phrase": "good-morning",
+      "seconds": 1.32,
+      "peak": 22279
+    },
+    {
+      "voice": "Gacrux",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 2.24,
+      "peak": 26279
+    },
+    {
+      "voice": "Gacrux",
+      "phrase": "im-listening",
+      "seconds": 1.4,
+      "peak": 18801
+    },
+    {
+      "voice": "Gacrux",
+      "phrase": "rp-probe",
+      "seconds": 4.8,
+      "peak": 32768
+    },
+    {
+      "voice": "Kore",
+      "phrase": "please-speak",
+      "seconds": 1.52,
+      "peak": 32767
+    },
+    {
+      "voice": "Kore",
+      "phrase": "im-here",
+      "seconds": 1.28,
+      "peak": 19883
+    },
+    {
+      "voice": "Kore",
+      "phrase": "hello",
+      "seconds": 1.32,
+      "peak": 19758
+    },
+    {
+      "voice": "Kore",
+      "phrase": "good-morning",
+      "seconds": 1.4,
+      "peak": 23433
+    },
+    {
+      "voice": "Kore",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.92,
+      "peak": 16854
+    },
+    {
+      "voice": "Kore",
+      "phrase": "im-listening",
+      "seconds": 1.44,
+      "peak": 18107
+    },
+    {
+      "voice": "Kore",
+      "phrase": "rp-probe",
+      "seconds": 5.12,
+      "peak": 18488
+    },
+    {
+      "voice": "Laomedeia",
+      "phrase": "please-speak",
+      "seconds": 1.4,
+      "peak": 24250
+    },
+    {
+      "voice": "Laomedeia",
+      "phrase": "im-here",
+      "seconds": 1.28,
+      "peak": 21914
+    },
+    {
+      "voice": "Laomedeia",
+      "phrase": "hello",
+      "seconds": 1.36,
+      "peak": 19461
+    },
+    {
+      "voice": "Laomedeia",
+      "phrase": "good-morning",
+      "seconds": 1.4,
+      "peak": 32768
+    },
+    {
+      "voice": "Laomedeia",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.8,
+      "peak": 17268
+    },
+    {
+      "voice": "Laomedeia",
+      "phrase": "im-listening",
+      "seconds": 1.52,
+      "peak": 32768
+    },
+    {
+      "voice": "Laomedeia",
+      "phrase": "rp-probe",
+      "seconds": 5.04,
+      "peak": 29703
+    },
+    {
+      "voice": "Leda",
+      "phrase": "please-speak",
+      "seconds": 1.56,
+      "peak": 32767
+    },
+    {
+      "voice": "Leda",
+      "phrase": "im-here",
+      "seconds": 1.28,
+      "peak": 22373
+    },
+    {
+      "voice": "Leda",
+      "phrase": "hello",
+      "seconds": 1.12,
+      "peak": 26013
+    },
+    {
+      "voice": "Leda",
+      "phrase": "good-morning",
+      "seconds": 1.44,
+      "peak": 27248
+    },
+    {
+      "voice": "Leda",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.96,
+      "peak": 31916
+    },
+    {
+      "voice": "Leda",
+      "phrase": "im-listening",
+      "seconds": 1.36,
+      "peak": 27909
+    },
+    {
+      "voice": "Leda",
+      "phrase": "rp-probe",
+      "seconds": 4.88,
+      "peak": 32768
+    },
+    {
+      "voice": "Pulcherrima",
+      "phrase": "please-speak",
+      "seconds": 1.48,
+      "peak": 12796
+    },
+    {
+      "voice": "Pulcherrima",
+      "phrase": "im-here",
+      "seconds": 1.24,
+      "peak": 18384
+    },
+    {
+      "voice": "Pulcherrima",
+      "phrase": "hello",
+      "seconds": 1.08,
+      "peak": 28724
+    },
+    {
+      "voice": "Pulcherrima",
+      "phrase": "good-morning",
+      "seconds": 1.32,
+      "peak": 20009
+    },
+    {
+      "voice": "Pulcherrima",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 2.16,
+      "peak": 29624
+    },
+    {
+      "voice": "Pulcherrima",
+      "phrase": "im-listening",
+      "seconds": 1.36,
+      "peak": 21520
+    },
+    {
+      "voice": "Pulcherrima",
+      "phrase": "rp-probe",
+      "seconds": 4.96,
+      "peak": 20165
+    },
+    {
+      "voice": "Sulafat",
+      "phrase": "please-speak",
+      "seconds": 1.6,
+      "peak": 16591
+    },
+    {
+      "voice": "Sulafat",
+      "phrase": "im-here",
+      "seconds": 1.16,
+      "peak": 23378
+    },
+    {
+      "voice": "Sulafat",
+      "phrase": "hello",
+      "seconds": 1.08,
+      "peak": 15450
+    },
+    {
+      "voice": "Sulafat",
+      "phrase": "good-morning",
+      "seconds": 1.48,
+      "peak": 20157
+    },
+    {
+      "voice": "Sulafat",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 2.08,
+      "peak": 20591
+    },
+    {
+      "voice": "Sulafat",
+      "phrase": "im-listening",
+      "seconds": 1.36,
+      "peak": 14855
+    },
+    {
+      "voice": "Sulafat",
+      "phrase": "rp-probe",
+      "seconds": 4.68,
+      "peak": 17004
+    },
+    {
+      "voice": "Vindemiatrix",
+      "phrase": "please-speak",
+      "seconds": 1.6,
+      "peak": 15081
+    },
+    {
+      "voice": "Vindemiatrix",
+      "phrase": "im-here",
+      "seconds": 1.24,
+      "peak": 14312
+    },
+    {
+      "voice": "Vindemiatrix",
+      "phrase": "hello",
+      "seconds": 1.16,
+      "peak": 21597
+    },
+    {
+      "voice": "Vindemiatrix",
+      "phrase": "good-morning",
+      "seconds": 1.56,
+      "peak": 16855
+    },
+    {
+      "voice": "Vindemiatrix",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.8,
+      "peak": 15731
+    },
+    {
+      "voice": "Vindemiatrix",
+      "phrase": "im-listening",
+      "seconds": 1.32,
+      "peak": 14753
+    },
+    {
+      "voice": "Vindemiatrix",
+      "phrase": "rp-probe",
+      "seconds": 5.12,
+      "peak": 28270
+    },
+    {
+      "voice": "Zephyr",
+      "phrase": "please-speak",
+      "seconds": 1.4,
+      "peak": 26817
+    },
+    {
+      "voice": "Zephyr",
+      "phrase": "im-here",
+      "seconds": 1.32,
+      "peak": 21761
+    },
+    {
+      "voice": "Zephyr",
+      "phrase": "hello",
+      "seconds": 1.16,
+      "peak": 14232
+    },
+    {
+      "voice": "Zephyr",
+      "phrase": "good-morning",
+      "seconds": 1.4,
+      "peak": 13639
+    },
+    {
+      "voice": "Zephyr",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.84,
+      "peak": 14158
+    },
+    {
+      "voice": "Zephyr",
+      "phrase": "im-listening",
+      "seconds": 1.52,
+      "peak": 16348
+    },
+    {
+      "voice": "Zephyr",
+      "phrase": "rp-probe",
+      "seconds": 4.6,
+      "peak": 18670
+    },
+    {
+      "voice": "Achird",
+      "phrase": "please-speak",
+      "seconds": 1.48,
+      "peak": 27829
+    },
+    {
+      "voice": "Achird",
+      "phrase": "im-here",
+      "seconds": 1.08,
+      "peak": 14309
+    },
+    {
+      "voice": "Achird",
+      "phrase": "hello",
+      "seconds": 1.24,
+      "peak": 19166
+    },
+    {
+      "voice": "Achird",
+      "phrase": "good-morning",
+      "seconds": 1.48,
+      "peak": 24426
+    },
+    {
+      "voice": "Achird",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 2.12,
+      "peak": 23001
+    },
+    {
+      "voice": "Achird",
+      "phrase": "im-listening",
+      "seconds": 1.24,
+      "peak": 26413
+    },
+    {
+      "voice": "Achird",
+      "phrase": "rp-probe",
+      "seconds": 4.72,
+      "peak": 24247
+    },
+    {
+      "voice": "Algenib",
+      "phrase": "please-speak",
+      "seconds": 1.56,
+      "peak": 21316
+    },
+    {
+      "voice": "Algenib",
+      "phrase": "im-here",
+      "seconds": 1.24,
+      "peak": 21914
+    },
+    {
+      "voice": "Algenib",
+      "phrase": "hello",
+      "seconds": 1.24,
+      "peak": 32768
+    },
+    {
+      "voice": "Algenib",
+      "phrase": "good-morning",
+      "seconds": 1.44,
+      "peak": 14589
+    },
+    {
+      "voice": "Algenib",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 2,
+      "peak": 16136
+    },
+    {
+      "voice": "Algenib",
+      "phrase": "im-listening",
+      "seconds": 1.36,
+      "peak": 30277
+    },
+    {
+      "voice": "Algenib",
+      "phrase": "rp-probe",
+      "seconds": 5.32,
+      "peak": 17366
+    },
+    {
+      "voice": "Algieba",
+      "phrase": "please-speak",
+      "seconds": 1.56,
+      "peak": 26269
+    },
+    {
+      "voice": "Algieba",
+      "phrase": "im-here",
+      "seconds": 1.16,
+      "peak": 32768
+    },
+    {
+      "voice": "Algieba",
+      "phrase": "hello",
+      "seconds": 1,
+      "peak": 32768
+    },
+    {
+      "voice": "Algieba",
+      "phrase": "good-morning",
+      "seconds": 1.44,
+      "peak": 24418
+    },
+    {
+      "voice": "Algieba",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.84,
+      "peak": 31647
+    },
+    {
+      "voice": "Algieba",
+      "phrase": "im-listening",
+      "seconds": 1.32,
+      "peak": 32767
+    },
+    {
+      "voice": "Algieba",
+      "phrase": "rp-probe",
+      "seconds": 4.92,
+      "peak": 32768
+    },
+    {
+      "voice": "Alnilam",
+      "phrase": "please-speak",
+      "seconds": 1.52,
+      "peak": 28576
+    },
+    {
+      "voice": "Alnilam",
+      "phrase": "im-here",
+      "seconds": 1.16,
+      "peak": 22180
+    },
+    {
+      "voice": "Alnilam",
+      "phrase": "hello",
+      "seconds": 1.16,
+      "peak": 27483
+    },
+    {
+      "voice": "Alnilam",
+      "phrase": "good-morning",
+      "seconds": 1.48,
+      "peak": 28295
+    },
+    {
+      "voice": "Alnilam",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.88,
+      "peak": 22264
+    },
+    {
+      "voice": "Alnilam",
+      "phrase": "im-listening",
+      "seconds": 1.4,
+      "peak": 19920
+    },
+    {
+      "voice": "Alnilam",
+      "phrase": "rp-probe",
+      "seconds": 4.64,
+      "peak": 32768
+    },
+    {
+      "voice": "Charon",
+      "phrase": "please-speak",
+      "seconds": 1.56,
+      "peak": 18266
+    },
+    {
+      "voice": "Charon",
+      "phrase": "im-here",
+      "seconds": 1.28,
+      "peak": 23880
+    },
+    {
+      "voice": "Charon",
+      "phrase": "hello",
+      "seconds": 0.96,
+      "peak": 18850
+    },
+    {
+      "voice": "Charon",
+      "phrase": "good-morning",
+      "seconds": 1.36,
+      "peak": 32768
+    },
+    {
+      "voice": "Charon",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.88,
+      "peak": 20871
+    },
+    {
+      "voice": "Charon",
+      "phrase": "im-listening",
+      "seconds": 1.16,
+      "peak": 15083
+    },
+    {
+      "voice": "Charon",
+      "phrase": "rp-probe",
+      "seconds": 4.24,
+      "peak": 32768
+    },
+    {
+      "voice": "Enceladus",
+      "phrase": "please-speak",
+      "seconds": 1.36,
+      "peak": 28967
+    },
+    {
+      "voice": "Enceladus",
+      "phrase": "im-here",
+      "seconds": 1.36,
+      "peak": 19080
+    },
+    {
+      "voice": "Enceladus",
+      "phrase": "hello",
+      "seconds": 1.12,
+      "peak": 24338
+    },
+    {
+      "voice": "Enceladus",
+      "phrase": "good-morning",
+      "seconds": 1.56,
+      "peak": 30845
+    },
+    {
+      "voice": "Enceladus",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 2.04,
+      "peak": 21738
+    },
+    {
+      "voice": "Enceladus",
+      "phrase": "im-listening",
+      "seconds": 1.32,
+      "peak": 18081
+    },
+    {
+      "voice": "Enceladus",
+      "phrase": "rp-probe",
+      "seconds": 5.12,
+      "peak": 26288
+    },
+    {
+      "voice": "Fenrir",
+      "phrase": "please-speak",
+      "seconds": 1.48,
+      "peak": 16036
+    },
+    {
+      "voice": "Fenrir",
+      "phrase": "im-here",
+      "seconds": 1.28,
+      "peak": 21160
+    },
+    {
+      "voice": "Fenrir",
+      "phrase": "hello",
+      "seconds": 1.08,
+      "peak": 21636
+    },
+    {
+      "voice": "Fenrir",
+      "phrase": "good-morning",
+      "seconds": 1.44,
+      "peak": 20400
+    },
+    {
+      "voice": "Fenrir",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 2,
+      "peak": 29486
+    },
+    {
+      "voice": "Fenrir",
+      "phrase": "im-listening",
+      "seconds": 1.24,
+      "peak": 19728
+    },
+    {
+      "voice": "Fenrir",
+      "phrase": "rp-probe",
+      "seconds": 5.08,
+      "peak": 31064
+    },
+    {
+      "voice": "Iapetus",
+      "phrase": "please-speak",
+      "seconds": 1.44,
+      "peak": 14748
+    },
+    {
+      "voice": "Iapetus",
+      "phrase": "im-here",
+      "seconds": 1.12,
+      "peak": 25620
+    },
+    {
+      "voice": "Iapetus",
+      "phrase": "hello",
+      "seconds": 1.2,
+      "peak": 21878
+    },
+    {
+      "voice": "Iapetus",
+      "phrase": "good-morning",
+      "seconds": 1.32,
+      "peak": 25018
+    },
+    {
+      "voice": "Iapetus",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 2.12,
+      "peak": 23585
+    },
+    {
+      "voice": "Iapetus",
+      "phrase": "im-listening",
+      "seconds": 1.36,
+      "peak": 18878
+    },
+    {
+      "voice": "Iapetus",
+      "phrase": "rp-probe",
+      "seconds": 4.72,
+      "peak": 26987
+    },
+    {
+      "voice": "Orus",
+      "phrase": "please-speak",
+      "seconds": 1.6,
+      "peak": 20987
+    },
+    {
+      "voice": "Orus",
+      "phrase": "im-here",
+      "seconds": 1.2,
+      "peak": 18379
+    },
+    {
+      "voice": "Orus",
+      "phrase": "hello",
+      "seconds": 1.12,
+      "peak": 25312
+    },
+    {
+      "voice": "Orus",
+      "phrase": "good-morning",
+      "seconds": 1.52,
+      "peak": 19369
+    },
+    {
+      "voice": "Orus",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 2.16,
+      "peak": 32768
+    },
+    {
+      "voice": "Orus",
+      "phrase": "im-listening",
+      "seconds": 1.36,
+      "peak": 21445
+    },
+    {
+      "voice": "Orus",
+      "phrase": "rp-probe",
+      "seconds": 4.96,
+      "peak": 32768
+    },
+    {
+      "voice": "Puck",
+      "phrase": "please-speak",
+      "seconds": 1.44,
+      "peak": 15444
+    },
+    {
+      "voice": "Puck",
+      "phrase": "im-here",
+      "seconds": 1.28,
+      "peak": 21355
+    },
+    {
+      "voice": "Puck",
+      "phrase": "hello",
+      "seconds": 1.12,
+      "peak": 15811
+    },
+    {
+      "voice": "Puck",
+      "phrase": "good-morning",
+      "seconds": 1.52,
+      "peak": 32768
+    },
+    {
+      "voice": "Puck",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.88,
+      "peak": 14063
+    },
+    {
+      "voice": "Puck",
+      "phrase": "im-listening",
+      "seconds": 1.64,
+      "peak": 21079
+    },
+    {
+      "voice": "Puck",
+      "phrase": "rp-probe",
+      "seconds": 4.84,
+      "peak": 27666
+    },
+    {
+      "voice": "Rasalgethi",
+      "phrase": "please-speak",
+      "seconds": 1.48,
+      "peak": 19165
+    },
+    {
+      "voice": "Rasalgethi",
+      "phrase": "im-here",
+      "seconds": 1.2,
+      "peak": 12274
+    },
+    {
+      "voice": "Rasalgethi",
+      "phrase": "hello",
+      "seconds": 1.32,
+      "peak": 12304
+    },
+    {
+      "voice": "Rasalgethi",
+      "phrase": "good-morning",
+      "seconds": 1.4,
+      "peak": 27455
+    },
+    {
+      "voice": "Rasalgethi",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.84,
+      "peak": 22754
+    },
+    {
+      "voice": "Rasalgethi",
+      "phrase": "im-listening",
+      "seconds": 1.44,
+      "peak": 25023
+    },
+    {
+      "voice": "Rasalgethi",
+      "phrase": "rp-probe",
+      "seconds": 4.68,
+      "peak": 22955
+    },
+    {
+      "voice": "Sadachbia",
+      "phrase": "please-speak",
+      "seconds": 1.56,
+      "peak": 28208
+    },
+    {
+      "voice": "Sadachbia",
+      "phrase": "im-here",
+      "seconds": 1.52,
+      "peak": 15264
+    },
+    {
+      "voice": "Sadachbia",
+      "phrase": "hello",
+      "seconds": 1.24,
+      "peak": 17434
+    },
+    {
+      "voice": "Sadachbia",
+      "phrase": "good-morning",
+      "seconds": 1.52,
+      "peak": 9049
+    },
+    {
+      "voice": "Sadachbia",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.8,
+      "peak": 17363
+    },
+    {
+      "voice": "Sadachbia",
+      "phrase": "im-listening",
+      "seconds": 1.24,
+      "peak": 25904
+    },
+    {
+      "voice": "Sadachbia",
+      "phrase": "rp-probe",
+      "seconds": 5.2,
+      "peak": 16577
+    },
+    {
+      "voice": "Sadaltager",
+      "phrase": "please-speak",
+      "seconds": 1.6,
+      "peak": 21436
+    },
+    {
+      "voice": "Sadaltager",
+      "phrase": "im-here",
+      "seconds": 1.24,
+      "peak": 19925
+    },
+    {
+      "voice": "Sadaltager",
+      "phrase": "hello",
+      "seconds": 1.16,
+      "peak": 23575
+    },
+    {
+      "voice": "Sadaltager",
+      "phrase": "good-morning",
+      "seconds": 1.32,
+      "peak": 32768
+    },
+    {
+      "voice": "Sadaltager",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.84,
+      "peak": 24492
+    },
+    {
+      "voice": "Sadaltager",
+      "phrase": "im-listening",
+      "seconds": 1.64,
+      "peak": 27423
+    },
+    {
+      "voice": "Sadaltager",
+      "phrase": "rp-probe",
+      "seconds": 5.12,
+      "peak": 28663
+    },
+    {
+      "voice": "Schedar",
+      "phrase": "please-speak",
+      "seconds": 1.32,
+      "peak": 32768
+    },
+    {
+      "voice": "Schedar",
+      "phrase": "im-here",
+      "seconds": 1.4,
+      "peak": 17193
+    },
+    {
+      "voice": "Schedar",
+      "phrase": "hello",
+      "seconds": 1.2,
+      "peak": 13403
+    },
+    {
+      "voice": "Schedar",
+      "phrase": "good-morning",
+      "seconds": 1.44,
+      "peak": 21960
+    },
+    {
+      "voice": "Schedar",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.76,
+      "peak": 16744
+    },
+    {
+      "voice": "Schedar",
+      "phrase": "im-listening",
+      "seconds": 1.44,
+      "peak": 28826
+    },
+    {
+      "voice": "Schedar",
+      "phrase": "rp-probe",
+      "seconds": 4.76,
+      "peak": 24964
+    },
+    {
+      "voice": "Umbriel",
+      "phrase": "please-speak",
+      "seconds": 1.32,
+      "peak": 24327
+    },
+    {
+      "voice": "Umbriel",
+      "phrase": "im-here",
+      "seconds": 1.2,
+      "peak": 27089
+    },
+    {
+      "voice": "Umbriel",
+      "phrase": "hello",
+      "seconds": 1.16,
+      "peak": 23778
+    },
+    {
+      "voice": "Umbriel",
+      "phrase": "good-morning",
+      "seconds": 1.4,
+      "peak": 28374
+    },
+    {
+      "voice": "Umbriel",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 2.24,
+      "peak": 25108
+    },
+    {
+      "voice": "Umbriel",
+      "phrase": "im-listening",
+      "seconds": 1.4,
+      "peak": 25246
+    },
+    {
+      "voice": "Umbriel",
+      "phrase": "rp-probe",
+      "seconds": 4.8,
+      "peak": 18461
+    },
+    {
+      "voice": "Zubenelgenubi",
+      "phrase": "please-speak",
+      "seconds": 1.52,
+      "peak": 25179
+    },
+    {
+      "voice": "Zubenelgenubi",
+      "phrase": "im-here",
+      "seconds": 1.44,
+      "peak": 19738
+    },
+    {
+      "voice": "Zubenelgenubi",
+      "phrase": "hello",
+      "seconds": 1.28,
+      "peak": 18467
+    },
+    {
+      "voice": "Zubenelgenubi",
+      "phrase": "good-morning",
+      "seconds": 1.52,
+      "peak": 23810
+    },
+    {
+      "voice": "Zubenelgenubi",
+      "phrase": "nice-to-see-you-again",
+      "seconds": 1.96,
+      "peak": 29598
+    },
+    {
+      "voice": "Zubenelgenubi",
+      "phrase": "im-listening",
+      "seconds": 1.36,
+      "peak": 31408
+    },
+    {
+      "voice": "Zubenelgenubi",
+      "phrase": "rp-probe",
+      "seconds": 4.84,
+      "peak": 32768
+    }
+  ],
+  "usReference": {
+    "please-speak": "01-please-speak.wav",
+    "im-here": "02-i-m-here.wav",
+    "hello": "03-hello.wav",
+    "good-morning": "05-good-morning.wav",
+    "nice-to-see-you-again": "11-nice-to-see-you-again.wav",
+    "im-listening": "16-i-m-listening.wav"
+  }
+}

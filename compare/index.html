@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gemini TTS · 英式 RP 音色对比</title>
+<style>
+  :root {
+    --bg: #0f1218;
+    --panel: #171b24;
+    --line: #2a3140;
+    --text: #e8edf5;
+    --muted: #9aa6b8;
+    --accent: #7dd3c0;
+    --female: #f0b4d0;
+    --male: #9ec5f0;
+    --us: #e8c07a;
+    --play: #1f6f5b;
+    --play-on: #2fa887;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.45;
+  }
+  header {
+    padding: 20px 24px 8px; max-width: 1400px; margin: 0 auto;
+  }
+  h1 { font-size: 22px; margin: 0 0 8px; font-weight: 650; }
+  .lede { color: var(--muted); max-width: 920px; font-size: 14px; }
+  .lede code { background: #232836; padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+    padding: 12px 24px 16px; max-width: 1400px; margin: 0 auto; position: sticky; top: 0;
+    background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); z-index: 5;
+  }
+  .toolbar label { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  button, select {
+    background: var(--panel); color: var(--text); border: 1px solid var(--line);
+    border-radius: 8px; padding: 6px 10px; cursor: pointer; font: inherit;
+  }
+  button:hover { border-color: var(--accent); }
+  .now { font-size: 13px; color: var(--accent); min-height: 1.4em; }
+  .wrap { overflow: auto; padding: 0 16px 48px; }
+  table { border-collapse: separate; border-spacing: 0; min-width: 1100px; width: 100%; }
+  th, td { border-bottom: 1px solid var(--line); padding: 8px 10px; text-align: center; background: var(--panel); }
+  thead th {
+    position: sticky; top: 52px; z-index: 3; background: #1c2230; font-size: 12px; font-weight: 600;
+  }
+  th.sticky, .voice th.sticky {
+    position: sticky; left: 0; z-index: 2; text-align: left; min-width: 180px; background: #1c2230;
+  }
+  thead th.sticky { z-index: 4; }
+  .ph { max-width: 140px; margin: 0 auto 4px; white-space: normal; }
+  .vname { font-size: 14px; }
+  .vmeta { font-size: 12px; color: var(--muted); }
+  .tag { font-size: 10px; background: var(--accent); color: #08211b; border-radius: 999px; padding: 1px 6px; margin-left: 4px; }
+  tr[data-gender="Female"] .vname { color: var(--female); }
+  tr[data-gender="Male"] .vname { color: var(--male); }
+  tr.current td, tr.current th { box-shadow: inset 3px 0 0 var(--accent); }
+  tr.us-ref th, tr.us-ref td { background: #241e14; }
+  tr.us-ref .vname { color: var(--us); }
+  .play {
+    width: 42px; height: 42px; border-radius: 50%; background: var(--play); border: 0;
+    font-size: 16px; color: white;
+  }
+  .play.us { background: #8a6a2f; }
+  .play.playing, .play:focus { background: var(--play-on); outline: 2px solid var(--accent); }
+  .play.missing { background: #33384a; opacity: 0.4; cursor: not-allowed; }
+  .mini { font-size: 11px; padding: 3px 7px; color: var(--muted); }
+  td.na { color: #556; }
+  tr.hidden { display: none; }
+  footer { color: var(--muted); font-size: 12px; padding: 8px 24px 32px; max-width: 1400px; margin: 0 auto; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Gemini TTS · 标准英式英语（RP）音色对比</h1>
+  <p class="lede">
+    Gemini TTS 没有单独的「英式 role」：官方 30 个 prebuilt voice 都可以说英式。
+    本页全部用 <code>languageCode=en-GB</code> + Received Pronunciation（BBC / 标准南部英音，非 Cockney / Estuary / 北部 / 苏格兰）生成。
+    现用美式对照行是仓库里的 <code>Achernar</code> + <code>en-US</code>。
+    点格子播放；同一时间只播一条。最后一列是 RP 试音句（can't / schedule / bath 元音 / half past four）。
+  </p>
+</header>
+<div class="toolbar">
+  <label>性别
+    <select id="gender">
+      <option value="all">全部 30</option>
+      <option value="Female">女声 14</option>
+      <option value="Male">男声 16</option>
+    </select>
+  </label>
+  <label>搜索音色 <input id="q" type="search" placeholder="Achernar / Warm / Female"></label>
+  <button id="stop">停止</button>
+  <div class="now" id="now">未播放</div>
+  <div class="now" id="ready">正在检测样本…</div>
+</div>
+<div class="wrap">
+<table>
+  <thead>
+    <tr>
+      <th class="sticky">音色</th>
+      <th title="Please speak"><div class="ph">Please speak</div><button class="mini" data-play-col="please-speak">播这一列</button></th><th title="I'm here"><div class="ph">I'm here</div><button class="mini" data-play-col="im-here">播这一列</button></th><th title="Hello"><div class="ph">Hello</div><button class="mini" data-play-col="hello">播这一列</button></th><th title="Good morning"><div class="ph">Good morning</div><button class="mini" data-play-col="good-morning">播这一列</button></th><th title="Nice to see you again"><div class="ph">Nice to see you again</div><button class="mini" data-play-col="nice-to-see-you-again">播这一列</button></th><th title="I'm listening"><div class="ph">I'm listening</div><button class="mini" data-play-col="im-listening">播这一列</button></th><th title="Good afternoon. I can't schedule that after half past four."><div class="ph">Good afternoon. I can't schedule that after half past four.</div><button class="mini" data-play-col="rp-probe">播这一列</button></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="us-ref" data-gender="Female" data-name="Achernar-US">
+      <th class="sticky">
+        <div class="vname">Achernar（现有美式）</div>
+        <div class="vmeta">Female · Soft · en-US</div>
+        <button class="mini" data-play-row="_us-achernar">播这一行</button>
+      </th>
+      <td><button class="play us" data-src="audio/_us-achernar/please-speak.wav" data-voice="_us-achernar" data-phrase="please-speak" title="Please speak">▶</button></td><td><button class="play us" data-src="audio/_us-achernar/im-here.wav" data-voice="_us-achernar" data-phrase="im-here" title="I'm here">▶</button></td><td><button class="play us" data-src="audio/_us-achernar/hello.wav" data-voice="_us-achernar" data-phrase="hello" title="Hello">▶</button></td><td><button class="play us" data-src="audio/_us-achernar/good-morning.wav" data-voice="_us-achernar" data-phrase="good-morning" title="Good morning">▶</button></td><td><button class="play us" data-src="audio/_us-achernar/nice-to-see-you-again.wav" data-voice="_us-achernar" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button></td><td><button class="play us" data-src="audio/_us-achernar/im-listening.wav" data-voice="_us-achernar" data-phrase="im-listening" title="I'm listening">▶</button></td><td class="na">—</td>
+    </tr>
+    <tr class="voice current" data-gender="Female" data-name="Achernar">
+      <th class="sticky">
+        <div class="vname">Achernar <span class="tag">现用</span></div>
+        <div class="vmeta">Female · Soft</div>
+        <button class="mini" data-play-row="Achernar">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Achernar/please-speak.wav" data-voice="Achernar" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Achernar/im-here.wav" data-voice="Achernar" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Achernar/hello.wav" data-voice="Achernar" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Achernar/good-morning.wav" data-voice="Achernar" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Achernar/nice-to-see-you-again.wav" data-voice="Achernar" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Achernar/im-listening.wav" data-voice="Achernar" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Achernar/rp-probe.wav" data-voice="Achernar" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Female" data-name="Aoede">
+      <th class="sticky">
+        <div class="vname">Aoede</div>
+        <div class="vmeta">Female · Breezy</div>
+        <button class="mini" data-play-row="Aoede">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Aoede/please-speak.wav" data-voice="Aoede" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Aoede/im-here.wav" data-voice="Aoede" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Aoede/hello.wav" data-voice="Aoede" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Aoede/good-morning.wav" data-voice="Aoede" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Aoede/nice-to-see-you-again.wav" data-voice="Aoede" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Aoede/im-listening.wav" data-voice="Aoede" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Aoede/rp-probe.wav" data-voice="Aoede" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Female" data-name="Autonoe">
+      <th class="sticky">
+        <div class="vname">Autonoe</div>
+        <div class="vmeta">Female · Bright</div>
+        <button class="mini" data-play-row="Autonoe">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Autonoe/please-speak.wav" data-voice="Autonoe" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Autonoe/im-here.wav" data-voice="Autonoe" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Autonoe/hello.wav" data-voice="Autonoe" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Autonoe/good-morning.wav" data-voice="Autonoe" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Autonoe/nice-to-see-you-again.wav" data-voice="Autonoe" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Autonoe/im-listening.wav" data-voice="Autonoe" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Autonoe/rp-probe.wav" data-voice="Autonoe" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Female" data-name="Callirrhoe">
+      <th class="sticky">
+        <div class="vname">Callirrhoe</div>
+        <div class="vmeta">Female · Easy-going</div>
+        <button class="mini" data-play-row="Callirrhoe">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Callirrhoe/please-speak.wav" data-voice="Callirrhoe" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Callirrhoe/im-here.wav" data-voice="Callirrhoe" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Callirrhoe/hello.wav" data-voice="Callirrhoe" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Callirrhoe/good-morning.wav" data-voice="Callirrhoe" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Callirrhoe/nice-to-see-you-again.wav" data-voice="Callirrhoe" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Callirrhoe/im-listening.wav" data-voice="Callirrhoe" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Callirrhoe/rp-probe.wav" data-voice="Callirrhoe" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Female" data-name="Despina">
+      <th class="sticky">
+        <div class="vname">Despina</div>
+        <div class="vmeta">Female · Smooth</div>
+        <button class="mini" data-play-row="Despina">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Despina/please-speak.wav" data-voice="Despina" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Despina/im-here.wav" data-voice="Despina" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Despina/hello.wav" data-voice="Despina" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Despina/good-morning.wav" data-voice="Despina" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Despina/nice-to-see-you-again.wav" data-voice="Despina" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Despina/im-listening.wav" data-voice="Despina" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Despina/rp-probe.wav" data-voice="Despina" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Female" data-name="Erinome">
+      <th class="sticky">
+        <div class="vname">Erinome</div>
+        <div class="vmeta">Female · Clear</div>
+        <button class="mini" data-play-row="Erinome">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Erinome/please-speak.wav" data-voice="Erinome" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Erinome/im-here.wav" data-voice="Erinome" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Erinome/hello.wav" data-voice="Erinome" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Erinome/good-morning.wav" data-voice="Erinome" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Erinome/nice-to-see-you-again.wav" data-voice="Erinome" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Erinome/im-listening.wav" data-voice="Erinome" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Erinome/rp-probe.wav" data-voice="Erinome" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Female" data-name="Gacrux">
+      <th class="sticky">
+        <div class="vname">Gacrux</div>
+        <div class="vmeta">Female · Mature</div>
+        <button class="mini" data-play-row="Gacrux">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Gacrux/please-speak.wav" data-voice="Gacrux" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Gacrux/im-here.wav" data-voice="Gacrux" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Gacrux/hello.wav" data-voice="Gacrux" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Gacrux/good-morning.wav" data-voice="Gacrux" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Gacrux/nice-to-see-you-again.wav" data-voice="Gacrux" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Gacrux/im-listening.wav" data-voice="Gacrux" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Gacrux/rp-probe.wav" data-voice="Gacrux" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Female" data-name="Kore">
+      <th class="sticky">
+        <div class="vname">Kore</div>
+        <div class="vmeta">Female · Firm</div>
+        <button class="mini" data-play-row="Kore">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Kore/please-speak.wav" data-voice="Kore" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Kore/im-here.wav" data-voice="Kore" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Kore/hello.wav" data-voice="Kore" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Kore/good-morning.wav" data-voice="Kore" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Kore/nice-to-see-you-again.wav" data-voice="Kore" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Kore/im-listening.wav" data-voice="Kore" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Kore/rp-probe.wav" data-voice="Kore" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Female" data-name="Laomedeia">
+      <th class="sticky">
+        <div class="vname">Laomedeia</div>
+        <div class="vmeta">Female · Upbeat</div>
+        <button class="mini" data-play-row="Laomedeia">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Laomedeia/please-speak.wav" data-voice="Laomedeia" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Laomedeia/im-here.wav" data-voice="Laomedeia" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Laomedeia/hello.wav" data-voice="Laomedeia" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Laomedeia/good-morning.wav" data-voice="Laomedeia" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Laomedeia/nice-to-see-you-again.wav" data-voice="Laomedeia" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Laomedeia/im-listening.wav" data-voice="Laomedeia" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Laomedeia/rp-probe.wav" data-voice="Laomedeia" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Female" data-name="Leda">
+      <th class="sticky">
+        <div class="vname">Leda</div>
+        <div class="vmeta">Female · Youthful</div>
+        <button class="mini" data-play-row="Leda">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Leda/please-speak.wav" data-voice="Leda" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Leda/im-here.wav" data-voice="Leda" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Leda/hello.wav" data-voice="Leda" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Leda/good-morning.wav" data-voice="Leda" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Leda/nice-to-see-you-again.wav" data-voice="Leda" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Leda/im-listening.wav" data-voice="Leda" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Leda/rp-probe.wav" data-voice="Leda" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Female" data-name="Pulcherrima">
+      <th class="sticky">
+        <div class="vname">Pulcherrima</div>
+        <div class="vmeta">Female · Forward</div>
+        <button class="mini" data-play-row="Pulcherrima">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Pulcherrima/please-speak.wav" data-voice="Pulcherrima" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Pulcherrima/im-here.wav" data-voice="Pulcherrima" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Pulcherrima/hello.wav" data-voice="Pulcherrima" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Pulcherrima/good-morning.wav" data-voice="Pulcherrima" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Pulcherrima/nice-to-see-you-again.wav" data-voice="Pulcherrima" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Pulcherrima/im-listening.wav" data-voice="Pulcherrima" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Pulcherrima/rp-probe.wav" data-voice="Pulcherrima" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Female" data-name="Sulafat">
+      <th class="sticky">
+        <div class="vname">Sulafat</div>
+        <div class="vmeta">Female · Warm</div>
+        <button class="mini" data-play-row="Sulafat">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Sulafat/please-speak.wav" data-voice="Sulafat" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sulafat/im-here.wav" data-voice="Sulafat" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sulafat/hello.wav" data-voice="Sulafat" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sulafat/good-morning.wav" data-voice="Sulafat" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sulafat/nice-to-see-you-again.wav" data-voice="Sulafat" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sulafat/im-listening.wav" data-voice="Sulafat" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sulafat/rp-probe.wav" data-voice="Sulafat" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Female" data-name="Vindemiatrix">
+      <th class="sticky">
+        <div class="vname">Vindemiatrix</div>
+        <div class="vmeta">Female · Gentle</div>
+        <button class="mini" data-play-row="Vindemiatrix">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Vindemiatrix/please-speak.wav" data-voice="Vindemiatrix" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Vindemiatrix/im-here.wav" data-voice="Vindemiatrix" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Vindemiatrix/hello.wav" data-voice="Vindemiatrix" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Vindemiatrix/good-morning.wav" data-voice="Vindemiatrix" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Vindemiatrix/nice-to-see-you-again.wav" data-voice="Vindemiatrix" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Vindemiatrix/im-listening.wav" data-voice="Vindemiatrix" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Vindemiatrix/rp-probe.wav" data-voice="Vindemiatrix" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Female" data-name="Zephyr">
+      <th class="sticky">
+        <div class="vname">Zephyr</div>
+        <div class="vmeta">Female · Bright</div>
+        <button class="mini" data-play-row="Zephyr">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Zephyr/please-speak.wav" data-voice="Zephyr" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Zephyr/im-here.wav" data-voice="Zephyr" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Zephyr/hello.wav" data-voice="Zephyr" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Zephyr/good-morning.wav" data-voice="Zephyr" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Zephyr/nice-to-see-you-again.wav" data-voice="Zephyr" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Zephyr/im-listening.wav" data-voice="Zephyr" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Zephyr/rp-probe.wav" data-voice="Zephyr" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Achird">
+      <th class="sticky">
+        <div class="vname">Achird</div>
+        <div class="vmeta">Male · Friendly</div>
+        <button class="mini" data-play-row="Achird">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Achird/please-speak.wav" data-voice="Achird" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Achird/im-here.wav" data-voice="Achird" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Achird/hello.wav" data-voice="Achird" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Achird/good-morning.wav" data-voice="Achird" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Achird/nice-to-see-you-again.wav" data-voice="Achird" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Achird/im-listening.wav" data-voice="Achird" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Achird/rp-probe.wav" data-voice="Achird" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Algenib">
+      <th class="sticky">
+        <div class="vname">Algenib</div>
+        <div class="vmeta">Male · Gravelly</div>
+        <button class="mini" data-play-row="Algenib">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Algenib/please-speak.wav" data-voice="Algenib" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Algenib/im-here.wav" data-voice="Algenib" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Algenib/hello.wav" data-voice="Algenib" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Algenib/good-morning.wav" data-voice="Algenib" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Algenib/nice-to-see-you-again.wav" data-voice="Algenib" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Algenib/im-listening.wav" data-voice="Algenib" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Algenib/rp-probe.wav" data-voice="Algenib" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Algieba">
+      <th class="sticky">
+        <div class="vname">Algieba</div>
+        <div class="vmeta">Male · Smooth</div>
+        <button class="mini" data-play-row="Algieba">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Algieba/please-speak.wav" data-voice="Algieba" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Algieba/im-here.wav" data-voice="Algieba" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Algieba/hello.wav" data-voice="Algieba" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Algieba/good-morning.wav" data-voice="Algieba" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Algieba/nice-to-see-you-again.wav" data-voice="Algieba" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Algieba/im-listening.wav" data-voice="Algieba" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Algieba/rp-probe.wav" data-voice="Algieba" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Alnilam">
+      <th class="sticky">
+        <div class="vname">Alnilam</div>
+        <div class="vmeta">Male · Firm</div>
+        <button class="mini" data-play-row="Alnilam">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Alnilam/please-speak.wav" data-voice="Alnilam" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Alnilam/im-here.wav" data-voice="Alnilam" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Alnilam/hello.wav" data-voice="Alnilam" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Alnilam/good-morning.wav" data-voice="Alnilam" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Alnilam/nice-to-see-you-again.wav" data-voice="Alnilam" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Alnilam/im-listening.wav" data-voice="Alnilam" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Alnilam/rp-probe.wav" data-voice="Alnilam" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Charon">
+      <th class="sticky">
+        <div class="vname">Charon</div>
+        <div class="vmeta">Male · Informative</div>
+        <button class="mini" data-play-row="Charon">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Charon/please-speak.wav" data-voice="Charon" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Charon/im-here.wav" data-voice="Charon" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Charon/hello.wav" data-voice="Charon" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Charon/good-morning.wav" data-voice="Charon" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Charon/nice-to-see-you-again.wav" data-voice="Charon" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Charon/im-listening.wav" data-voice="Charon" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Charon/rp-probe.wav" data-voice="Charon" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Enceladus">
+      <th class="sticky">
+        <div class="vname">Enceladus</div>
+        <div class="vmeta">Male · Breathy</div>
+        <button class="mini" data-play-row="Enceladus">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Enceladus/please-speak.wav" data-voice="Enceladus" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Enceladus/im-here.wav" data-voice="Enceladus" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Enceladus/hello.wav" data-voice="Enceladus" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Enceladus/good-morning.wav" data-voice="Enceladus" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Enceladus/nice-to-see-you-again.wav" data-voice="Enceladus" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Enceladus/im-listening.wav" data-voice="Enceladus" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Enceladus/rp-probe.wav" data-voice="Enceladus" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Fenrir">
+      <th class="sticky">
+        <div class="vname">Fenrir</div>
+        <div class="vmeta">Male · Excitable</div>
+        <button class="mini" data-play-row="Fenrir">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Fenrir/please-speak.wav" data-voice="Fenrir" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Fenrir/im-here.wav" data-voice="Fenrir" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Fenrir/hello.wav" data-voice="Fenrir" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Fenrir/good-morning.wav" data-voice="Fenrir" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Fenrir/nice-to-see-you-again.wav" data-voice="Fenrir" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Fenrir/im-listening.wav" data-voice="Fenrir" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Fenrir/rp-probe.wav" data-voice="Fenrir" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Iapetus">
+      <th class="sticky">
+        <div class="vname">Iapetus</div>
+        <div class="vmeta">Male · Clear</div>
+        <button class="mini" data-play-row="Iapetus">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Iapetus/please-speak.wav" data-voice="Iapetus" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Iapetus/im-here.wav" data-voice="Iapetus" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Iapetus/hello.wav" data-voice="Iapetus" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Iapetus/good-morning.wav" data-voice="Iapetus" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Iapetus/nice-to-see-you-again.wav" data-voice="Iapetus" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Iapetus/im-listening.wav" data-voice="Iapetus" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Iapetus/rp-probe.wav" data-voice="Iapetus" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Orus">
+      <th class="sticky">
+        <div class="vname">Orus</div>
+        <div class="vmeta">Male · Firm</div>
+        <button class="mini" data-play-row="Orus">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Orus/please-speak.wav" data-voice="Orus" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Orus/im-here.wav" data-voice="Orus" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Orus/hello.wav" data-voice="Orus" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Orus/good-morning.wav" data-voice="Orus" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Orus/nice-to-see-you-again.wav" data-voice="Orus" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Orus/im-listening.wav" data-voice="Orus" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Orus/rp-probe.wav" data-voice="Orus" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Puck">
+      <th class="sticky">
+        <div class="vname">Puck</div>
+        <div class="vmeta">Male · Upbeat</div>
+        <button class="mini" data-play-row="Puck">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Puck/please-speak.wav" data-voice="Puck" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Puck/im-here.wav" data-voice="Puck" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Puck/hello.wav" data-voice="Puck" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Puck/good-morning.wav" data-voice="Puck" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Puck/nice-to-see-you-again.wav" data-voice="Puck" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Puck/im-listening.wav" data-voice="Puck" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Puck/rp-probe.wav" data-voice="Puck" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Rasalgethi">
+      <th class="sticky">
+        <div class="vname">Rasalgethi</div>
+        <div class="vmeta">Male · Informative</div>
+        <button class="mini" data-play-row="Rasalgethi">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Rasalgethi/please-speak.wav" data-voice="Rasalgethi" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Rasalgethi/im-here.wav" data-voice="Rasalgethi" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Rasalgethi/hello.wav" data-voice="Rasalgethi" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Rasalgethi/good-morning.wav" data-voice="Rasalgethi" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Rasalgethi/nice-to-see-you-again.wav" data-voice="Rasalgethi" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Rasalgethi/im-listening.wav" data-voice="Rasalgethi" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Rasalgethi/rp-probe.wav" data-voice="Rasalgethi" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Sadachbia">
+      <th class="sticky">
+        <div class="vname">Sadachbia</div>
+        <div class="vmeta">Male · Lively</div>
+        <button class="mini" data-play-row="Sadachbia">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Sadachbia/please-speak.wav" data-voice="Sadachbia" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sadachbia/im-here.wav" data-voice="Sadachbia" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sadachbia/hello.wav" data-voice="Sadachbia" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sadachbia/good-morning.wav" data-voice="Sadachbia" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sadachbia/nice-to-see-you-again.wav" data-voice="Sadachbia" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sadachbia/im-listening.wav" data-voice="Sadachbia" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sadachbia/rp-probe.wav" data-voice="Sadachbia" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Sadaltager">
+      <th class="sticky">
+        <div class="vname">Sadaltager</div>
+        <div class="vmeta">Male · Knowledgeable</div>
+        <button class="mini" data-play-row="Sadaltager">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Sadaltager/please-speak.wav" data-voice="Sadaltager" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sadaltager/im-here.wav" data-voice="Sadaltager" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sadaltager/hello.wav" data-voice="Sadaltager" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sadaltager/good-morning.wav" data-voice="Sadaltager" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sadaltager/nice-to-see-you-again.wav" data-voice="Sadaltager" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sadaltager/im-listening.wav" data-voice="Sadaltager" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Sadaltager/rp-probe.wav" data-voice="Sadaltager" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Schedar">
+      <th class="sticky">
+        <div class="vname">Schedar</div>
+        <div class="vmeta">Male · Even</div>
+        <button class="mini" data-play-row="Schedar">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Schedar/please-speak.wav" data-voice="Schedar" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Schedar/im-here.wav" data-voice="Schedar" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Schedar/hello.wav" data-voice="Schedar" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Schedar/good-morning.wav" data-voice="Schedar" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Schedar/nice-to-see-you-again.wav" data-voice="Schedar" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Schedar/im-listening.wav" data-voice="Schedar" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Schedar/rp-probe.wav" data-voice="Schedar" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Umbriel">
+      <th class="sticky">
+        <div class="vname">Umbriel</div>
+        <div class="vmeta">Male · Easy-going</div>
+        <button class="mini" data-play-row="Umbriel">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Umbriel/please-speak.wav" data-voice="Umbriel" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Umbriel/im-here.wav" data-voice="Umbriel" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Umbriel/hello.wav" data-voice="Umbriel" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Umbriel/good-morning.wav" data-voice="Umbriel" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Umbriel/nice-to-see-you-again.wav" data-voice="Umbriel" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Umbriel/im-listening.wav" data-voice="Umbriel" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Umbriel/rp-probe.wav" data-voice="Umbriel" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+<tr class="voice" data-gender="Male" data-name="Zubenelgenubi">
+      <th class="sticky">
+        <div class="vname">Zubenelgenubi</div>
+        <div class="vmeta">Male · Casual</div>
+        <button class="mini" data-play-row="Zubenelgenubi">播这一行</button>
+      </th>
+      <td>
+        <button class="play" data-src="audio/Zubenelgenubi/please-speak.wav" data-voice="Zubenelgenubi" data-phrase="please-speak" title="Please speak">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Zubenelgenubi/im-here.wav" data-voice="Zubenelgenubi" data-phrase="im-here" title="I'm here">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Zubenelgenubi/hello.wav" data-voice="Zubenelgenubi" data-phrase="hello" title="Hello">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Zubenelgenubi/good-morning.wav" data-voice="Zubenelgenubi" data-phrase="good-morning" title="Good morning">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Zubenelgenubi/nice-to-see-you-again.wav" data-voice="Zubenelgenubi" data-phrase="nice-to-see-you-again" title="Nice to see you again">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Zubenelgenubi/im-listening.wav" data-voice="Zubenelgenubi" data-phrase="im-listening" title="I'm listening">▶</button>
+      </td><td>
+        <button class="play" data-src="audio/Zubenelgenubi/rp-probe.wav" data-voice="Zubenelgenubi" data-phrase="rp-probe" title="Good afternoon. I can't schedule that after half past four.">▶</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<footer>
+  模型 gemini-3.1-flash-tts-preview · 24 kHz WAV · 打开本页请用本地静态服务（例如 <code>python3 -m http.server</code> 于 compare/）。
+</footer>
+<script>
+const audio = new Audio();
+let currentBtn = null;
+const now = document.getElementById("now");
+
+function setPlaying(btn) {
+  if (currentBtn) currentBtn.classList.remove("playing");
+  currentBtn = btn;
+  if (btn) btn.classList.add("playing");
+}
+
+function playSrc(btn) {
+  const src = btn.getAttribute("data-src");
+  const voice = btn.getAttribute("data-voice");
+  const phrase = btn.getAttribute("data-phrase");
+  if (!src) return;
+  if (currentBtn === btn && !audio.paused) {
+    audio.pause();
+    setPlaying(null);
+    now.textContent = "已暂停";
+    return;
+  }
+  audio.src = src;
+  audio.play().then(() => {
+    setPlaying(btn);
+    now.textContent = "正在播放：" + voice + " · " + phrase;
+  }).catch((err) => {
+    now.textContent = "无法播放 " + src + "（" + err.message + "）";
+  });
+}
+
+audio.addEventListener("ended", () => {
+  setPlaying(null);
+  now.textContent = "播放结束";
+  if (queue.length) playNext();
+});
+
+let queue = [];
+function playNext() {
+  const btn = queue.shift();
+  if (btn) playSrc(btn);
+}
+
+document.addEventListener("click", (e) => {
+  const play = e.target.closest("[data-src]");
+  if (play) { queue = []; playSrc(play); return; }
+  const row = e.target.closest("[data-play-row]");
+  if (row) {
+    const name = row.getAttribute("data-play-row");
+    const sel = name === "_us-achernar"
+      ? 'tr.us-ref button[data-src]'
+      : 'tr[data-name="' + CSS.escape(name) + '"] button[data-src]';
+    queue = [...document.querySelectorAll(sel)];
+    playNext();
+    return;
+  }
+  const col = e.target.closest("[data-play-col]");
+  if (col) {
+    const id = col.getAttribute("data-play-col");
+    const visible = 'tr.voice:not(.hidden) button[data-phrase="' + CSS.escape(id) + '"]';
+    queue = [...document.querySelectorAll(visible)];
+    playNext();
+  }
+});
+
+document.getElementById("stop").onclick = () => {
+  queue = [];
+  audio.pause();
+  audio.removeAttribute("src");
+  setPlaying(null);
+  now.textContent = "已停止";
+};
+
+function applyFilter() {
+  const g = document.getElementById("gender").value;
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  document.querySelectorAll("tr.voice").forEach((tr) => {
+    const genderOk = g === "all" || tr.dataset.gender === g;
+    const hay = (tr.dataset.name + " " + tr.textContent).toLowerCase();
+    tr.classList.toggle("hidden", !(genderOk && (!q || hay.includes(q))));
+  });
+}
+document.getElementById("gender").onchange = applyFilter;
+document.getElementById("q").oninput = applyFilter;
+
+const readyEl = document.getElementById("ready");
+async function markMissing() {
+  const buttons = [...document.querySelectorAll("button.play[data-src]")];
+  let ok = 0;
+  await Promise.all(buttons.map(async (btn) => {
+    if (btn.dataset.ok === "1") { ok++; return; }
+    try {
+      const r = await fetch(btn.getAttribute("data-src"), { method: "HEAD" });
+      if (r.ok) {
+        btn.dataset.ok = "1";
+        btn.classList.remove("missing");
+        btn.disabled = false;
+        ok++;
+      } else {
+        btn.classList.add("missing");
+        btn.disabled = true;
+      }
+    } catch {
+      btn.classList.add("missing");
+      btn.disabled = true;
+    }
+  }));
+  readyEl.textContent = "已就绪 " + ok + "/" + buttons.length;
+  return ok === buttons.length;
+}
+(async function pollReady() {
+  const all = await markMissing();
+  if (!all) setTimeout(pollReady, 8000);
+})();
+</script>
+</body>
+</html>
