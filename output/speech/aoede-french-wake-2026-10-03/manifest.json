@@ -1,0 +1,98 @@
+{
+  "model": "gemini-3.1-flash-tts-preview",
+  "voice": "Aoede",
+  "locale": "fr-FR",
+  "sampleRate": 24000,
+  "channels": 1,
+  "encoding": "signed 16-bit little-endian PCM",
+  "clips": [
+    {
+      "id": "01-salut",
+      "text": "Salut !",
+      "translation": "嗨！",
+      "seconds": 1.04,
+      "pcmBytes": 49920,
+      "requestMs": 2265,
+      "returnedMimeType": "audio/l16; rate=24000; channels=1",
+      "prompt": "Generate one short French wake-word acknowledgment for an in-car voice assistant. Speak only the exact transcript below, once. Natural French from France, warm and friendly, concise conversational pace, with a gentle inviting tone. No preamble, extra words, repetition, music or sound effects. The question \"Oui ?\" should sound attentive and welcoming. These directions must not be spoken.\n\nTRANSCRIPT:\nSalut !",
+      "generatedAt": "2026-10-03T03:20:19.127Z"
+    },
+    {
+      "id": "02-bonjour",
+      "text": "Bonjour !",
+      "translation": "你好！",
+      "seconds": 1.28,
+      "pcmBytes": 61440,
+      "requestMs": 1629,
+      "returnedMimeType": "audio/l16; rate=24000; channels=1",
+      "prompt": "Generate one short French wake-word acknowledgment for an in-car voice assistant. Speak only the exact transcript below, once. Natural French from France, warm and friendly, concise conversational pace, with a gentle inviting tone. No preamble, extra words, repetition, music or sound effects. The question \"Oui ?\" should sound attentive and welcoming. These directions must not be spoken.\n\nTRANSCRIPT:\nBonjour !",
+      "generatedAt": "2026-10-03T03:20:27.261Z"
+    },
+    {
+      "id": "03-je-suis-la",
+      "text": "Je suis là.",
+      "translation": "我在。",
+      "seconds": 1.2,
+      "pcmBytes": 57600,
+      "requestMs": 1623,
+      "returnedMimeType": "audio/l16; rate=24000; channels=1",
+      "prompt": "Generate one short French wake-word acknowledgment for an in-car voice assistant. Speak only the exact transcript below, once. Natural French from France, warm and friendly, concise conversational pace, with a gentle inviting tone. No preamble, extra words, repetition, music or sound effects. The question \"Oui ?\" should sound attentive and welcoming. These directions must not be spoken.\n\nTRANSCRIPT:\nJe suis là.",
+      "generatedAt": "2026-10-03T03:20:35.387Z"
+    },
+    {
+      "id": "04-je-vous-ecoute",
+      "text": "Je vous écoute.",
+      "translation": "我在听。",
+      "seconds": 1.28,
+      "pcmBytes": 61440,
+      "requestMs": 1855,
+      "returnedMimeType": "audio/l16; rate=24000; channels=1",
+      "prompt": "Generate one short French wake-word acknowledgment for an in-car voice assistant. Speak only the exact transcript below, once. Natural French from France, warm and friendly, concise conversational pace, with a gentle inviting tone. No preamble, extra words, repetition, music or sound effects. The question \"Oui ?\" should sound attentive and welcoming. These directions must not be spoken.\n\nTRANSCRIPT:\nJe vous écoute.",
+      "generatedAt": "2026-10-03T03:20:43.746Z"
+    },
+    {
+      "id": "05-oui",
+      "text": "Oui ?",
+      "translation": "嗯？",
+      "seconds": 0.96,
+      "pcmBytes": 46080,
+      "requestMs": 1395,
+      "returnedMimeType": "audio/l16; rate=24000; channels=1",
+      "prompt": "Generate one short French wake-word acknowledgment for an in-car voice assistant. Speak only the exact transcript below, once. Natural French from France, warm and friendly, concise conversational pace, with a gentle inviting tone. No preamble, extra words, repetition, music or sound effects. The question \"Oui ?\" should sound attentive and welcoming. These directions must not be spoken.\n\nTRANSCRIPT:\nOui ?",
+      "generatedAt": "2026-10-03T03:20:51.644Z"
+    },
+    {
+      "id": "06-allez-y",
+      "text": "Allez-y.",
+      "translation": "请说。",
+      "seconds": 1.16,
+      "pcmBytes": 55680,
+      "requestMs": 1565,
+      "returnedMimeType": "audio/l16; rate=24000; channels=1",
+      "prompt": "Generate one short French wake-word acknowledgment for an in-car voice assistant. Speak only the exact transcript below, once. Natural French from France, warm and friendly, concise conversational pace, with a gentle inviting tone. No preamble, extra words, repetition, music or sound effects. The question \"Oui ?\" should sound attentive and welcoming. These directions must not be spoken.\n\nTRANSCRIPT:\nAllez-y.",
+      "generatedAt": "2026-10-03T03:20:59.714Z"
+    },
+    {
+      "id": "07-dites-moi",
+      "text": "Dites-moi.",
+      "translation": "你说。",
+      "seconds": 1.12,
+      "pcmBytes": 53760,
+      "requestMs": 1670,
+      "returnedMimeType": "audio/l16; rate=24000; channels=1",
+      "prompt": "Generate one short French wake-word acknowledgment for an in-car voice assistant. Speak only the exact transcript below, once. Natural French from France, warm and friendly, concise conversational pace, with a gentle inviting tone. No preamble, extra words, repetition, music or sound effects. The question \"Oui ?\" should sound attentive and welcoming. These directions must not be spoken.\n\nTRANSCRIPT:\nDites-moi.",
+      "generatedAt": "2026-10-03T03:21:07.895Z"
+    },
+    {
+      "id": "08-je-peux-vous-aider",
+      "text": "Je peux vous aider ?",
+      "translation": "有什么需要帮忙的吗？",
+      "seconds": 1.28,
+      "pcmBytes": 61440,
+      "requestMs": 1621,
+      "returnedMimeType": "audio/l16; rate=24000; channels=1",
+      "prompt": "Generate one short French wake-word acknowledgment for an in-car voice assistant. Speak only the exact transcript below, once. Natural French from France, warm and friendly, concise conversational pace, with a gentle inviting tone. No preamble, extra words, repetition, music or sound effects. The question \"Oui ?\" should sound attentive and welcoming. These directions must not be spoken.\n\nTRANSCRIPT:\nJe peux vous aider ?",
+      "generatedAt": "2026-10-03T03:21:16.023Z"
+    }
+  ]
+}
